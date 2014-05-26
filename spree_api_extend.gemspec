@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- mode:ruby; coding:utf-8 -*-
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_api_extend'
@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 2.1.0.beta'
+  #s.add_dependency 'spree_core', '~> 2.1.0.beta'
+  s.add_dependency 'spree', '2.2.1'
 
   s.add_development_dependency 'capybara', '~> 2.1'
   s.add_development_dependency 'coffee-rails'

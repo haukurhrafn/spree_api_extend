@@ -3,11 +3,16 @@ module Spree
     class UserSessionController < Spree::Api::BaseController
       include Spree::Core::ControllerHelpers::Auth
       include Spree::Core::ControllerHelpers::Order
+
+      before_filter :authenticate_user, :except => [:new, :create]
+
+      def new
+      end
       
       # expects json:
-      # { session: {
-      #      "email": "",
-      #      "password": ""
+      # { "session": {
+      #      "email": "spree@example.com",
+      #      "password": "spree123"
       #   }
       # }
       # TODO. create/load session ?
@@ -17,15 +22,17 @@ module Spree
         #   @user = user
         #   return respond_with(@user, :status => 200, :default_template => :show)
         # end
+        params[:session][:login] ||= params[:session][:email]
         user = Spree::User.find_for_database_authentication(:login => params[:session][:login])
         if user && user.valid_password?(params[:session][:password])
           # Cookie sessions are our friend... for now.
           # sign_in(user, :event => :authentication, :bypass => true)
-          @order = current_order(true)
+          user.generate_spree_api_key! if user.spree_api_key.blank?
+          @order = current_order(:create_order_if_necessary => true)
           @user = user
           return respond_with(@user, :status => 200, :default_template => :show)
         else
-          render "spree/api/errors/not_found", :status => 404 and return
+          not_found
         end
       end
 
@@ -36,7 +43,7 @@ module Spree
           @user = user
           respond_with(@user, :status => 200, :default_template => :show)
         else
-          render "spree/api/errors/not_found", :status => 404 and return
+          not_found
         end
       end
 

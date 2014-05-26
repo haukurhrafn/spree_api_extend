@@ -4,6 +4,7 @@ module SpreeApiExtend
 
       class_option :auto_run_migrations, :type => :boolean, :default => false
 
+=begin
       def add_javascripts
         append_file 'app/assets/javascripts/store/all.js', "//= require store/spree_api_extend\n"
         append_file 'app/assets/javascripts/admin/all.js', "//= require admin/spree_api_extend\n"
@@ -13,7 +14,7 @@ module SpreeApiExtend
         inject_into_file 'app/assets/stylesheets/store/all.css', " *= require store/spree_api_extend\n", :before => /\*\//, :verbose => true
         inject_into_file 'app/assets/stylesheets/admin/all.css', " *= require admin/spree_api_extend\n", :before => /\*\//, :verbose => true
       end
-
+=end
       def add_migrations
         run 'bundle exec rake railties:install:migrations FROM=spree_api_extend'
       end
