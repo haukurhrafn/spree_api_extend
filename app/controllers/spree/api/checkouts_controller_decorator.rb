@@ -1,4 +1,5 @@
 Spree::Api::CheckoutsController.class_eval do
+=begin
   def update
     user_id = object_params.delete(:user_id)
     if @order.update_attributes(object_params)
@@ -13,4 +14,5 @@ Spree::Api::CheckoutsController.class_eval do
       invalid_resource!(@order)
     end
   end
+=end
 end

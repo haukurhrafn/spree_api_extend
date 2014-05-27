@@ -28,7 +28,7 @@ module Spree
           # Cookie sessions are our friend... for now.
           # sign_in(user, :event => :authentication, :bypass => true)
           user.generate_spree_api_key! if user.spree_api_key.blank?
-          @order = current_order(:create_order_if_necessary => true)
+#          @order = current_order(:create_order_if_necessary => true)
           @user = user
           return respond_with(@user, :status => 200, :default_template => :show)
         else
@@ -52,7 +52,8 @@ module Spree
         # Not all api clients will be browsers.
         cookies.clear
         session.clear
-        super
+        respond_with(@user, :status => 204)
+#        super
       end
 
       private

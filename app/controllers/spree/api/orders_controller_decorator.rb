@@ -1,4 +1,5 @@
 Spree::Api::OrdersController.class_eval do
+=begin
   def index
     if current_api_user.has_spree_role?("admin")
         @orders = Spree::Order.ransack(params[:q]).result.page(params[:page]).per(params[:per_page])
@@ -26,4 +27,5 @@ Spree::Api::OrdersController.class_eval do
       invalid_resource!(@order)
     end
   end
+=end
 end
