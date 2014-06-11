@@ -7,7 +7,8 @@ module Spree
       include Spree::Core::ControllerHelpers::Order
       
       def show
-        @order = current_order(true)
+        #@order = current_order(true)
+        @order = current_order(:create_order_if_necessary => true)
         @user = try_spree_current_user
       end
     end
