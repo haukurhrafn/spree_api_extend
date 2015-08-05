@@ -9,7 +9,13 @@ module Spree
       def show
         #@order = current_order(true)
         @order = current_order(:create_order_if_necessary => true)
-        @user = try_spree_current_user
+        @user = user
+      end
+      
+      private
+
+      def user
+        @current_api_user || try_spree_current_user
       end
     end
   end
