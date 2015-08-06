@@ -8,7 +8,8 @@ module Spree
       
       def show
         #@order = current_order(true)
-        @order = current_order(:create_order_if_necessary => true)
+        #@order = current_order(:create_order_if_necessary => true)
+        @order = Spree::Order.cart.where(user_id: current_api_user.id).ransack(params[:q]).result.page(params[:page]).per(params[:per_page])
         @user = user
       end
       
