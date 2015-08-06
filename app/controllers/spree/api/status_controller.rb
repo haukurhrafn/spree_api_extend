@@ -8,8 +8,7 @@ module Spree
       
       def show
         #@order = current_order(true)
-        #@order = current_order(:create_order_if_necessary => true)
-        @order = last_incomplete_spree_order
+        @order = current_order(:create_order_if_necessary => true)
         @user = user
       end
       
