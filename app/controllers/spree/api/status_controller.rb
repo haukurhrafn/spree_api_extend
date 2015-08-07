@@ -18,6 +18,10 @@ module Spree
       def user
         @current_api_user || try_spree_current_user
       end
+      
+      def find_current_order
+        current_api_user ? current_api_user.orders.incomplete.order(:created_at).last : nil
+      end
     end
   end
 end
